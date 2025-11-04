@@ -1,4 +1,4 @@
-# Technical Report — WhatsApp-like Chat with Cristian Clock Sync
+# Technical Report — TRANSMITTER(WhatsApp-like Chat with Cristian Clock Sync)
 
 **Overview**
 This project implements a multi-client chat system using Python sockets and threading.  
