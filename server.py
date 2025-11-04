@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 server.py — Multi-client chat server with Cristian's clock sync.
 """
