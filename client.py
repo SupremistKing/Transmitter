@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#NikhilGuleria/usr/bin/env python3
 """
 client.py — Tkinter chat client using Cristian's clock sync.
 """
