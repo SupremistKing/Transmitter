@@ -1,37 +1,52 @@
 # Technical Report — TRANSMITTER(WhatsApp-like Chat with Cristian Clock Sync)
 
-**Overview**
-This project implements a multi-client chat system using Python sockets and threading.  
-Each client has a Tkinter GUI that displays both the local and server-synchronized time.  
-Cristian’s algorithm keeps all clients’ clocks consistent.
+## 1. Server-Client Communication
+- The system uses Python **sockets** for communication.
+- **Server** listens for multiple client connections.
+- Each **client** connects to the server and can send messages.
+- The server **broadcasts** messages to all connected clients in real time.
+- Example flow:
+  1. Client sends message to server.
+  2. Server receives message.
+  3. Server forwards message to all other clients.
 
-**Architecture**
-- **Server:** Handles multiple clients via threads, broadcasts all messages, responds to time-sync requests.  
-- **Client:** Connects via sockets, displays chat window, periodically requests server time.
+## 2. Threading / Concurrency
+- The **server** uses Python **threading** to handle multiple clients simultaneously.
+- Each client connection runs in a separate thread.
+- Threading ensures that receiving and sending messages does not block other clients.
+- The server can handle multiple messages at the same time.
 
-**Threading**
-- Each server client runs in a separate `threading.Thread`.  
-- Each client runs a listener thread so the GUI (Tkinter mainloop) remains responsive.
+## 3. Clock Synchronization (Cristian's Algorithm)
+- Clients synchronize their clocks with the server periodically.
+- **Cristian's algorithm** steps:
+  1. Client sends a timestamp request to the server.
+  2. Server responds with its current time.
+  3. Client calculates the **offset** between its clock and the server's.
+  4. Client adjusts its clock based on the offset.
+- This ensures that all clients have a **reasonably synchronized time** for message timestamps.
+- Example output:
+  ```
+  [SYNC] offset=-0.0100s
+  ```
+  Indicates the client clock is 10 milliseconds ahead of the server.
 
-**Cristian’s Algorithm**
-1. Client notes `t0` (send time).  
-2. Server replies with its current clock `ts`.  
-3. Client notes `t1` (receive time).  
-4. Estimated true time ≈ `ts + (t1 - t0)/2`.  
-5. Client applies correction offset to its local simulated clock.
+## 4. Graphical User Interface (Tkinter)
+- Each client has a **Tkinter GUI**.
+- Components:
+  - Chat window showing messages.
+  - Input box for typing messages.
+  - Labels displaying **local time** and **synced server time**.
+- Messages are displayed with timestamps based on the synchronized clock.
 
-**Clock Drift Simulation**
-Clients add a small drift per second to simulate hardware clock differences.  
-Regular synchronization (every 5 s) corrects the drift automatically.
+## 5. Testing / Multi-client Verification
+- Multiple clients were run simultaneously.
+- Messages appear in all clients in real time.
+- Clock synchronization messages show small offsets, confirming accurate syncing.
+- Both chat functionality and time synchronization were verified to work correctly.
 
-**Testing**
-1. Run `server.py` → waits for clients.  
-2. Run `client.py` in two terminals → exchange messages.  
-3. Observe `[SYNC]` offsets adjusting periodically.  
-
-**Files**
-| File | Purpose |
-|------|----------|
-| `server.py` | Multi-client broadcast + clock responses |
-| `client.py` | Tkinter GUI + Cristian sync |
-| `technical_report.md` | Design summary |
+## Conclusion
+- The assignment objectives were successfully met:
+  - Multi-client chat system with broadcasting.
+  - Threaded server for concurrency.
+  - Cristian’s clock synchronization implemented.
+  - Tkinter GUI displaying messages and time.
