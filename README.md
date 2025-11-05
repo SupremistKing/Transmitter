@@ -24,6 +24,8 @@ You’ll see `[SYNC]` messages showing periodic clock adjustments.
 
 #  Showcase
 Add screenshots of:
-1. Server console with client connections  
-2. Two chat windows exchanging messages  
-3. `[SYNC]` offset logs  
+1. Server console with client connections
+   <img width="400" height="150" alt="image" src="https://github.com/user-attachments/assets/b9fb764f-8f45-44f7-a07b-cb214ef654d0" />
+
+3. Two chat windows exchanging messages  
+4. `[SYNC]` offset logs  
